@@ -1,11 +1,11 @@
 import { React, useState } from "react";
-
 import { useNavigate } from 'react-router-dom';
 
 function AddContent({ data, setData }) {
 
     let navigate = useNavigate();
 
+    let [profile, setProfile] = useState("");
     let [user, setUser] = useState("");
     let [productName, setProductName] = useState("");
     let [noOfProduct, setNoOfProduct] = useState("");
@@ -15,6 +15,7 @@ function AddContent({ data, setData }) {
     let handleSave = () => {
         data.push(
             {
+                profile,
                 user,
                 productName,
                 noOfProduct,
@@ -22,6 +23,7 @@ function AddContent({ data, setData }) {
                 status,
             }
         )
+
         console.log(data)
         navigate('/ProductAndUsers')
     }
@@ -31,6 +33,10 @@ function AddContent({ data, setData }) {
     return <div>
         <h1>Add User</h1>
         <form>
+            <div class="form-group">
+                <label for="exampleInputPassword1">Profile Pic</label>
+                <input type="text" class="form-control" onChange={(e) => setProfile(e.target.value)} placeholder="Enter Pic url" />
+            </div>
             <div class="form-group">
                 <label for="exampleInputPassword1">User Name</label>
                 <input type="text" class="form-control" onChange={(e) => setUser(e.target.value)} placeholder="Enter Name" />
@@ -56,15 +62,14 @@ function AddContent({ data, setData }) {
             </div>
             <div class="form-group">
                 <label for="exampleInputPassword1">Status</label><br />
-                {/* <input type="text" class="form-control" onChange={(e) => setStatus(e.target.value)} placeholder="Enter Status" /> */}
                 <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
-                    <input type="radio" class="btn-check" name="btnradio" onClick={() => { setStatus("Pending"); console.log(setStatus) }} id="btnradio1" autocomplete="off" />
+                    <input type="radio" class="btn-check" name="btnradio" onClick={() => setStatus("Pending")} id="btnradio1" autocomplete="off" />
                     <label class="btn btn-outline-primary" for="btnradio1">Pending</label>
 
-                    <input type="radio" class="btn-check" name="btnradio" onClick={() => setStatus("In-progress")} id="btnradio2" autocomplete="off" />
-                    <label class="btn btn-outline-secondary" for="btnradio2">In-progress</label>
+                    <input type="radio" class="btn-check" name="btnradio" onClick={() => setStatus("In-Progress")} id="btnradio2" autocomplete="off" />
+                    <label class="btn btn-outline-secondary" for="btnradio2">In-Progress</label>
 
-                    <input type="radio" class="btn-check" name="btnradio" id="btnradio3" onClick={() => setStatus("Completed")} autocomplete="off" />
+                    <input type="radio" class="btn-check" name="btnradio" onClick={() => setStatus("Completed")} id="btnradio3" autocomplete="off" />
                     <label class="btn btn-outline-success" for="btnradio3">Completed</label>
 
                 </div>
