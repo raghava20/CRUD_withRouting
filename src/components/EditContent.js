@@ -1,13 +1,15 @@
-import { React, useState, useEffect } from "react";
+import { React, useState, useEffect, useContext } from "react";
 import { useNavigate, useParams } from 'react-router-dom';
+import { UserContext } from "../App";
 
-function EditContent({ data, setData }) {
+function EditContent() {
 
     useEffect(() => {
         getData();
     }, [])// getData will load all the data of the user before it will render 
 
     let navigate = useNavigate();
+    let context = useContext(UserContext);
     let { id } = useParams();
 
     let [profile, setProfile] = useState("");
@@ -18,7 +20,7 @@ function EditContent({ data, setData }) {
     let [status, setStatus] = useState("");
 
     let handleSave = () => {
-        data[id] = (
+        context.data[id] = (
             {
                 profile,
                 user,
@@ -28,13 +30,12 @@ function EditContent({ data, setData }) {
                 status,
             }
         )
-        setData([...data])
-        console.log(data)
+        context.setData([...context.data])
         navigate('/ProductAndUsers')
     }
 
     let getData = () => {
-        let value = data[id]
+        let value = context.data[id]
         setUser(value.user)
         setProductName(value.productName)
         setNoOfProduct(value.noOfProduct)

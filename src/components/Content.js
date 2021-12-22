@@ -1,14 +1,17 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
 import "../App.css"
+import { UserContext } from '../App';
 
-function Content({ data, setData }) {
+function Content() {
 
     let navigate = useNavigate();
 
+    let context = useContext(UserContext);//useContext hook helps to get the value of context.provider
+
     let handleDelete = (e) => {
-        data.splice(data.indexOf(e), 1)
-        setData([...data])
+        context.data.splice(context.data.indexOf(e), 1)
+        context.setData([...context.data])
     }
     return (
         <div>
@@ -27,7 +30,7 @@ function Content({ data, setData }) {
                 </thead>
                 <tbody>
                     {
-                        data.map((e, i) => {
+                        context.data.map((e, i) => {
                             return <tr key={i}>
                                 <th scope="row">{i + 1}</th>
                                 <td><div className='profile-box' onClick={() => navigate("/edit-profile/" + i)}><img className='shorter-logo' src={e.profile} alt="profile" /></div></td>

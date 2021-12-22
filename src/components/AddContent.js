@@ -1,9 +1,11 @@
-import { React, useState } from "react";
+import { React, useContext, useState } from "react";
 import { useNavigate } from 'react-router-dom';
+import { UserContext } from "../App";
 
-function AddContent({ data, setData }) {
+function AddContent() {
 
     let navigate = useNavigate();
+    let context = useContext(UserContext);
 
     let [profile, setProfile] = useState("");
     let [user, setUser] = useState("");
@@ -13,7 +15,7 @@ function AddContent({ data, setData }) {
     let [status, setStatus] = useState("");
 
     let handleSave = () => {
-        data.push(
+        context.data.push(
             {
                 profile,
                 user,
@@ -24,7 +26,6 @@ function AddContent({ data, setData }) {
             }
         )
 
-        console.log(data)
         navigate('/ProductAndUsers')
     }
 
@@ -53,7 +54,7 @@ function AddContent({ data, setData }) {
             <div class="form-group">
                 <label for="exampleInputPassword1">Due</label><br />
                 <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
-                    <input type="radio" class="btn-check" name="btnradio1" onClick={() => { setDue("Paid"); console.log(setStatus) }} id="btnpaid" autocomplete="off" />
+                    <input type="radio" class="btn-check" name="btnradio1" onClick={() => setDue("Paid")} id="btnpaid" autocomplete="off" />
                     <label class="btn btn-outline-success" for="btnpaid">Paid</label>
 
                     <input type="radio" class="btn-check" name="btnradio1" onClick={() => setDue("Not Paid")} id="btnnotpaid" autocomplete="off" />

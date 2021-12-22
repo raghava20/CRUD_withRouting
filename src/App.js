@@ -6,6 +6,9 @@ import Content from './components/Content';
 import AddContent from './components/AddContent';
 import EditContent from './components/EditContent';
 import EditProfilePic from './components/EditProfilePic';
+
+export const UserContext = React.createContext("");
+
 function App() {
   let [data, setData] = useState([
     {
@@ -60,21 +63,24 @@ function App() {
   return (
     <>
       <Router>
-        <div style={{ display: "grid", gridTemplateColumns: "18% 78%" }}>
-          <div>
-            <SideBar />
+        <UserContext.Provider value={{ data, setData }}>
+          {/* Added the context provider for sending the data from parent to different child */}
+          <div style={{ display: "grid", gridTemplateColumns: "18% 78%" }}>
+            <div>
+              <SideBar />
+            </div>
+            <div>
+              <Routes>
+                <Route path="/ProductAndUsers" element={<Content />} />
+                <Route exact path="/" element={<Content />} />
+                <Route path="/add-user" element={<AddContent />} />
+                <Route path="/edit-user/:id" element={<EditContent />} />
+                <Route path="/edit-profile/:id" element={<EditProfilePic />} />
+                {/* Added route for editing the existing user */}
+              </Routes>
+            </div>
           </div>
-          <div>
-            <Routes>
-              <Route path="/ProductAndUsers" element={<Content data={data} setData={setData} />} />
-              <Route exact path="/" element={<Content data={data} setData={setData} />} />
-              <Route path="/add-user" element={<AddContent data={data} setData={setData} />} />
-              <Route path="/edit-user/:id" element={<EditContent data={data} setData={setData} />} />
-              <Route path="/edit-profile/:id" element={<EditProfilePic data={data} setData={setData} />} />
-              {/* Added route for editing the existing user */}
-            </Routes>
-          </div>
-        </div>
+        </UserContext.Provider>
       </Router>
     </>
   );
