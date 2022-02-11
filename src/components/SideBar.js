@@ -4,8 +4,8 @@ import { Link } from "react-router-dom";
 function SideBar() {
 
     return (
-        <div>
-            <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+        <div className="sidebar">
+            <ul>
                 <a class="sidebar-brand d-flex align-items-center justify-content-center"
                     href="index.html"
                 >
