@@ -66,10 +66,10 @@ function App() {
         <UserContext.Provider value={{ data, setData }}>
           {/* Added the context provider for sending the data from parent to different child */}
           <div style={{ display: "grid", gridTemplateColumns: "18% 78%" }}>
-            <div>
+            <div class="sidebar">
               <SideBar />
             </div>
-            <div>
+            <div class="p-2 overflow-auto">
               <Routes>
                 <Route path="/ProductAndUsers" element={<Content />} />
                 <Route exact path="/" element={<Content />} />
